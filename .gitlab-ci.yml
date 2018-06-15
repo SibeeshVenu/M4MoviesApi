@@ -1,0 +1,27 @@
+image: microsoft/aspnetcore-build:latest
+stages: 
+  - compile
+  - test
+  - build
+compile: 
+  stage: compile
+  script: 
+    - 'dotnet restore'
+    - 'dotnet build'
+test:
+  stage: test
+  script: 
+    - 'dotnet test Tests/Tests.Service.Data/Tests.Service.Data.csproj'
+    - 'dotnet test Tests/Tests.Service.Business/Tests.Service.Business.csproj'
+    - 'dotnet test Tests/Tests.Service.Api/Tests.Service.Api.csproj'
+build:
+  stage: build
+  script:
+    - 'dotnet publish Api.sln -c Release'
+  artifacts: 
+    expire_in: 1 month
+    paths: 
+      - Service/M4Movie_Api/bin/Release/netcoreapp2.0/publish/
+
+
+

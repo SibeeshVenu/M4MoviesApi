@@ -1,0 +1,31 @@
+version: '3.6'
+networks:
+  default:
+     driver: nat
+     name: api_default
+services:
+  m4moviesdb:
+    image: microsoft/mssql-server-windows-express
+    ports:
+      - "8000:80" 
+    restart: always
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_YEULA: "Y"        
+
+  m4movie_api:
+    image: m4movieapi   
+    ports:
+      - "1433:1433" 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links: 
+      - m4moviesdb
+    restart: always
+    environment:
+      - DBHOST=m4moviesdb
+      - ASPNETCORE_ENVIRONMENT=Development
+      - M4MoviesConnection="data source=m4moviesdb;initial catalog=M4Movies;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"
+
+
