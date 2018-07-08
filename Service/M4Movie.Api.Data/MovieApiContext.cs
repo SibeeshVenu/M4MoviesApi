@@ -1,8 +1,6 @@
 ﻿using M4Movie.Api.Contracts;
 using M4Movie.Api.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
 
 namespace M4Movie.Api.Data
 {

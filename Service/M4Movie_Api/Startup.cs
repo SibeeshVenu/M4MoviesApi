@@ -51,7 +51,7 @@ namespace M4Movie_Api
 
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-            AutoMigration(app);
+            //AutoMigration(app);
 
             app.UseMvc();
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using M4Movie.Api.Business.Interfaces;
+using A4Auth.Api.Business.Interfaces;
 using M4Movie.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

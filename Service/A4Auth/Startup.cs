@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using M4Movie.Api.Business;
-using M4Movie.Api.Business.Interfaces;
+using A4Auth.Api.Business;
+using A4Auth.Api.Business.Interfaces;
+using A4Auth.Api.Data;
+using A4Auth.Api.Data.Interfaces;
 using M4Movie.Api.Contracts;
-using M4Movie.Api.Data;
-using M4Movie.Api.Data.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,7 +51,7 @@ namespace A4Auth
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IAuthUnitOfWork, AuthUnitOfWork>();
             services.AddTransient<ITokenService, TokenService>();
-            services.AddDbContext<AuthApiContext>(options => options.UseSqlServer(Configuration.GetConnectionString("A4AuthConnection")));
+            services.AddDbContext<AuthApiContext>(options => options.UseSqlServer(Configuration["connectionString"]));
             services.AddMvc();
         }
 

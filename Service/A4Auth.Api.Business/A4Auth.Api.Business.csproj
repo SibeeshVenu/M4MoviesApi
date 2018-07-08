@@ -5,12 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\A4Auth.Api.Data\A4Auth.Api.Data.csproj" />
-    <ProjectReference Include="..\M4Movie.Api.Data\M4Movie.Api.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

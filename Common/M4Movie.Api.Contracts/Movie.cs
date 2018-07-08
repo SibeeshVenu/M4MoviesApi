@@ -39,6 +39,6 @@ namespace M4Movie.Api.Contracts
         public DateTime ReleaseDate { get; set; }
 
         [JsonProperty(PropertyName = "isWatchList")]
-        public bool isWatchList { get; set; }
+        public bool IsWatchList { get; set; }
     }
 }

@@ -61,7 +61,7 @@ namespace M4Movie_Api.Controllers
                 var movie = MovieService.GetMovie(id);
                 return Ok(movie);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }
@@ -84,7 +84,7 @@ namespace M4Movie_Api.Controllers
 
         }
 
-        [HttpPost, Authorize]
+        [HttpPost("addToWatchList"), Authorize]
         public IActionResult Add([FromBody] Movie movie)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

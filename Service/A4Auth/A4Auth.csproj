@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AuthContextFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -18,7 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\M4Movie.Api.Business\M4Movie.Api.Business.csproj" />
+    <ProjectReference Include="..\..\Common\M4Movie.Api.Contracts\M4Movie.Api.Contracts.csproj" />
+    <ProjectReference Include="..\A4Auth.Api.Business\A4Auth.Api.Business.csproj" />
+    <ProjectReference Include="..\A4Auth.Api.Data\A4Auth.Api.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

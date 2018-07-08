@@ -1,5 +1,3 @@
-An Asp.Net core API which uses Micro services to get the move data from TMDB database, and uses Repository pattern and unit of work design for saving some movies to SQL database. It includes login, register actions as well. A logged in user can perform some actions. https://sibeeshpassion.com
-
 This is a Movie Web API applciation <b>M4Movie</b>
 
  - The project is built with Asp.Net Core 2.0 Web API

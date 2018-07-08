@@ -3,10 +3,7 @@ using M4Movie.Api.Contracts;
 using M4Movie.Api.Data.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace M4Movie.Api.Business
 {
@@ -44,7 +41,7 @@ namespace M4Movie.Api.Business
             if (watchListMovie != null)
             {
                 movie.Comments = watchListMovie.Comments;
-                movie.isWatchList = true;
+                movie.IsWatchList = true;
             }
             return movie;
         }
@@ -53,7 +50,7 @@ namespace M4Movie.Api.Business
 
         public void AddMovie(Movie movie)
         {
-            movie.isWatchList = true;
+            movie.IsWatchList = true;
             _unitOfWork.Movies.Add(movie);
             _unitOfWork.Complete();
         }
