@@ -14,7 +14,9 @@ namespace M4Movie.Api.Business.Interfaces
         void AddMovie(Movie movie);
         IEnumerable<Movie> GetMovies();
         void RemoveFromWatchList(Movie movie);
-        Movie GetWatchListMovie(long id);
+        Movie AlreadyWatchListed(Movie movie);
         Movie UpdateCommentToMovie(Movie movie);
+        IEnumerable<Movie> GetWatchListedMoviesByUserId(long userId);
+        Movie GetComments(long movieId, long userId);
     }
 }

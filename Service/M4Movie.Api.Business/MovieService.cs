@@ -15,6 +15,8 @@ namespace M4Movie.Api.Business
 
         public IEnumerable<Movie> GetMovies(string searchType) => MapMovies(_unitOfWork.Movies.GetMoviesFromTmdb(searchType));
 
+        public IEnumerable<Movie> GetWatchListedMoviesByUserId(long userId) => _unitOfWork.Movies.Find(m => m.UserId == userId);
+
         private IEnumerable<Movie> MapMovies(string data)
         {
             var lstMovies = new List<Movie>();
@@ -37,16 +39,12 @@ namespace M4Movie.Api.Business
         private Movie MapMovie(string data)
         {
             var movie = JsonConvert.DeserializeObject<Movie>(data);
-            var watchListMovie = GetWatchListMovie(movie.MovieId);
-            if (watchListMovie != null)
-            {
-                movie.Comments = watchListMovie.Comments;
-                movie.IsWatchList = true;
-            }
             return movie;
         }
 
-        public Movie GetWatchListMovie(long id) => _unitOfWork.Movies.Get(id);
+        public Movie AlreadyWatchListed(Movie movie) => _unitOfWork.Movies.SingleOrDefault(m => m.MovieId == movie.MovieId && m.UserId == movie.UserId);
+
+        public Movie GetComments(long movieId, long userId) => _unitOfWork.Movies.SingleOrDefault(m => m.MovieId == movieId && m.UserId == userId);
 
         public void AddMovie(Movie movie)
         {
@@ -57,7 +55,7 @@ namespace M4Movie.Api.Business
 
         public Movie UpdateCommentToMovie(Movie movie)
         {
-            var watchList = GetWatchListMovie(movie.MovieId);
+            var watchList = AlreadyWatchListed(movie);
             watchList.Comments = movie.Comments;
             _unitOfWork.Complete();
             return movie;

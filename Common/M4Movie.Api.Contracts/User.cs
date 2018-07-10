@@ -28,5 +28,9 @@ namespace M4Movie.Api.Contracts
         [DataType(DataType.Password), MaxLength(50), Required]
         [JsonProperty(PropertyName = "password")]
         public string Password { get; set; }
+
+        [DataType(DataType.Text)]
+        [JsonProperty(PropertyName = "currentToken")]
+        public string CurrentToken { get; set; }
     }
 }

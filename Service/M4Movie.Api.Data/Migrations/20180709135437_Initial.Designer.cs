@@ -11,9 +11,10 @@ using System;
 namespace M4Movie.Api.Data.Migrations
 {
     [DbContext(typeof(MovieApiContext))]
-    partial class MovieApiContextModelSnapshot : ModelSnapshot
+    [Migration("20180709135437_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

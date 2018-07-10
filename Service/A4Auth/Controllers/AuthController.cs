@@ -15,7 +15,7 @@ namespace A4Auth.Controllers
         private static IConfiguration _configuration;
         private static IUserService _userService;
 
-        public AuthController(IConfiguration configuration, 
+        public AuthController(IConfiguration configuration,
             ITokenService tokenService,
             IUserService userService)
         {
@@ -47,7 +47,7 @@ namespace A4Auth.Controllers
             if (user == null) return BadRequest();
             try
             {
-                if(_userService.GetUserByEmail(user.UserEmail)!= null) return StatusCode(409, "Sorry, that mail id is not available");
+                if (_userService.GetUserByEmail(user.UserEmail) != null) return StatusCode(409, "Sorry, that mail id is not available");
                 _userService.AddUser(user);
                 return CreatedAtAction("register", user);
             }
@@ -67,8 +67,10 @@ namespace A4Auth.Controllers
                 var existingUser = _userService.GetUserByEmail(user.UserEmail);
                 if (existingUser == null) return NotFound(user);
                 if (_userService.IsValidCredential(user.UserEmail, user.Password) == null) return BadRequest("Invalid Credentials");
-                return Ok(_tokenService.GenerateToken(user.UserEmail, _configuration["SignInKey"],
-                _configuration["TokenIssuer"], _configuration["TokenAudience"]));
+                var token = _tokenService.GenerateToken(user.UserEmail, _configuration["SignInKey"],
+                _configuration["TokenIssuer"], _configuration["TokenAudience"]);
+                existingUser.CurrentToken = token;
+                return Ok(existingUser);
             }
             catch (Exception)
             {

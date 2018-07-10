@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace M4Movie_Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Movies")]    
+    [Route("api/Movies")]
     public class MovieController : ControllerBase
     {
         public MovieController(IMovieService movieService)
@@ -28,6 +28,21 @@ namespace M4Movie_Api.Controllers
             try
             {
                 var movies = MovieService.GetMovies(searchType);
+                return Ok(movies);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("getWatchList/{id:long}")]
+        public IActionResult GetWatchList(long id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var movies = MovieService.GetWatchListedMoviesByUserId(id);
                 return Ok(movies);
             }
             catch (Exception)
@@ -68,7 +83,7 @@ namespace M4Movie_Api.Controllers
 
         }
 
-        [HttpDelete, Authorize]
+        [HttpDelete("deleteFromWatchList"), Authorize]
         public IActionResult Delete([FromBody] Movie movie)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -77,7 +92,7 @@ namespace M4Movie_Api.Controllers
                 MovieService.RemoveFromWatchList(movie);
                 return Ok(movie);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }
@@ -90,14 +105,14 @@ namespace M4Movie_Api.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var existingMovie = MovieService.GetWatchListMovie(movie.MovieId);
+                var existingMovie = MovieService.AlreadyWatchListed(movie);
                 if (existingMovie != null)
                     return BadRequest(ApiConstants.movieAlreadyExists);
                 MovieService.AddMovie(movie);
                 return Created("api/Movie/Add", movie);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }
@@ -110,12 +125,31 @@ namespace M4Movie_Api.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var existingMovie = MovieService.GetWatchListMovie(movie.MovieId);
+                var existingMovie = MovieService.AlreadyWatchListed(movie);
                 if (existingMovie == null)
-                    return NotFound();
-                MovieService.UpdateCommentToMovie(movie);
+                {
+                    MovieService.AddMovie(movie);
+                }
+                else
+                {
+                    MovieService.UpdateCommentToMovie(movie);
+                }
                 return Ok(movie);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
 
+        [HttpGet("getComments")]
+        public IActionResult GetComments(long movieId, long userId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var movie = MovieService.GetComments(movieId, userId);
+                return Ok(movie);
             }
             catch (Exception)
             {

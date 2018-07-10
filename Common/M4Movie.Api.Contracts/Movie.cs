@@ -8,7 +8,10 @@ namespace M4Movie.Api.Contracts
     [Serializable]
     public class Movie
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [JsonProperty(PropertyName = "watchListMovieId")]
+        public long WatchListMovieId { get; set; }
+
         [JsonProperty(PropertyName ="id")]
         public long MovieId { get; set; }
 
@@ -40,5 +43,8 @@ namespace M4Movie.Api.Contracts
 
         [JsonProperty(PropertyName = "isWatchList")]
         public bool IsWatchList { get; set; }
+
+        [JsonProperty(PropertyName = "userid")]
+        public long UserId { get; set; }
     }
 }

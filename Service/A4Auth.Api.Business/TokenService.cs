@@ -18,7 +18,7 @@ namespace A4Auth.Api.Business
             var token = new JwtSecurityToken(
                 issuer: tokenIssuer,
                 audience: tokenAudience,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(60),
                 claims: dataClaim,
                 signingCredentials: signInCredential
                 );
