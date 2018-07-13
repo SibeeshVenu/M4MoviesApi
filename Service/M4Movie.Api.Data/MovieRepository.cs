@@ -28,6 +28,15 @@ namespace M4Movie.Api.Data
             return client.ExecuteAsync(request).Result;
         }
 
+        public string SearchMovies(string searchText)
+        {
+            //https://api.themoviedb.org/3/search/movie?api_key=415e9238d5188172426c3858b367e468&language=en-US&query=aveng&page=1&include_adult=false
+            var apiUrl = $"{ApiConstants.baseUrl}{ApiConstants.searchMovies.Replace("{searchText}", searchText)}{ApiConstants.apiKey}";
+            var client = new RestClient(apiUrl);
+            var request = new RestRequest(Method.GET);
+            return client.ExecuteAsync(request).Result;
+        }
+
         public string GetMovieFromTmdbById(long id)
         {
             var apiUrl = $"{ApiConstants.baseUrl}{ApiConstants.movieById.Replace("{movieId}", id.ToString())}{ApiConstants.apiKey}";

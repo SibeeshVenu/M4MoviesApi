@@ -17,6 +17,7 @@ namespace M4Movie.Api.Business.Interfaces
         Movie AlreadyWatchListed(Movie movie);
         Movie UpdateCommentToMovie(Movie movie);
         IEnumerable<Movie> GetWatchListedMoviesByUserId(long userId);
+        IEnumerable<Movie> SearchMovies(string searchText);
         Movie GetComments(long movieId, long userId);
     }
 }

@@ -15,6 +15,8 @@ namespace M4Movie.Api.Business
 
         public IEnumerable<Movie> GetMovies(string searchType) => MapMovies(_unitOfWork.Movies.GetMoviesFromTmdb(searchType));
 
+        public IEnumerable<Movie> SearchMovies(string searchText) => MapMovies(_unitOfWork.Movies.SearchMovies(searchText));
+
         public IEnumerable<Movie> GetWatchListedMoviesByUserId(long userId) => _unitOfWork.Movies.Find(m => m.UserId == userId);
 
         private IEnumerable<Movie> MapMovies(string data)

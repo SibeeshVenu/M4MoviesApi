@@ -11,6 +11,7 @@ namespace M4Movie_Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Movies")]
+    [Authorize]
     public class MovieController : ControllerBase
     {
         public MovieController(IMovieService movieService)
@@ -152,6 +153,21 @@ namespace M4Movie_Api.Controllers
                 return Ok(movie);
             }
             catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("search")]
+        public IActionResult SearchMovie(string searchText)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var movie = MovieService.SearchMovies(searchText);
+                return Ok(movie);
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }

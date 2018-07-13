@@ -64,8 +64,17 @@ namespace A4Auth
             }
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-            
+
+            AutoMigration(app);
             app.UseMvc();
+        }
+
+        private void AutoMigration(IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<AuthApiContext>().Database.Migrate();
+            }
         }
     }
 }
